@@ -1,0 +1,30 @@
+﻿@model CascadingDropdown.Models.UploadFile
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center text-primary">Upload Image</h1>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <input id="files" type="file" name="files" class="form-control-file">
+                        </div>
+                        <div class="form-group">
+                            <input type="button" value="Upload" onclick="UploadFile()" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

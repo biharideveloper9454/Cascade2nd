@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Validation";
+}
+
+<script src="~/js/Custom.js"></script>
+<script type="text/javascript">
+
+    function validate() {
+        var name = document.f1.name.value;
+        var passwordlength = document.f1.password.value.length;
+        var status = false;
+        if (name == "") {
+            document.getElementById("namelocation").innerHTML = "Please enter your name";  
+            status = false;
+        } else {
+            document.getElementById("namelocation").innerHTML = "";
+            status = true;
+        }
+    }
+</script>
+
+
+<form name="f1">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td>
+                <input type="text" name="name" />
+                <span id="namelocation" style="color:red"></span>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" onsubmit="validate()" class="btn btn-sm btn-primary"/>
+</form>
+
+
+
+
+

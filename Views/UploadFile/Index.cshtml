@@ -1,0 +1,85 @@
+﻿@model CascadingDropdown.Models.ViewModel.UploadFileCreateViewModel
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1">
+            <button type="button" class="btn btn-primary m-1 float-right" data-toggle="modal" data-target="#myModal" onclick="HideKey()">Add User</button>
+
+            <table class="table table-bordered">
+                <tr class="text-center text-primary">
+                    <th>UniqueId</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Country</th>
+                    <th>State</th>
+                    <th>City</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+                <tbody class="tbody text-center"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@*===================================================Start form===================*@
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title m-1 float-right text-info" id="myModalLabel"></h4>
+                <button type="button" class="close text-danger float-left" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body modal-side + modal-top-right">
+                <form enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Id"></label>
+                        <input class="form-control" id="Id" asp-for="Id" placeholder="Unique-Id" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input class="form-control" id="Name" asp-for="Name" placeholder="Enter your name" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Gender"></label>
+                        <select class="form-control" asp-for="Gender" id="Gender">
+                            <option value="">--Select Gender--</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Image"></label>
+                        <input class="form-control" id="Image" asp-for="Image" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Country"></label>
+                        <input class="form-control" id="Country" asp-for="Country" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="State"></label>
+                        <input class="form-control" id="State" asp-for="State" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="City"></label>
+                        <input class="form-control" id="City" asp-for="City" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
+                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/UploadFile.js"></script>
+}

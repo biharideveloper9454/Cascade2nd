@@ -1,0 +1,100 @@
+﻿@model CascadingDropdown.Models.ViewModel.UploadFileCreateViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1">
+            <button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#myModal" onclick="HideKey()">Add User</button><br /><br />
+            <table class="table table-bordered">
+                <tr class="text-center">
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Country</th>
+                    <th>State</th>
+                    <th>City</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+                <tbody class="tbody text-center"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="UserModal">Add User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-danger" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                        <label class="float-right text-danger" asp-for="Id"></label>
+                        <input asp-for="Id" id="Id" class="form-control text-center text-danger" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" id="Name" placeholder="Enter name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" asp-for="Gender" id="Gender">
+                            <option value="0">--Select Gender--</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label asp-for="Country"></label>
+                                <select class="form-control" asp-for="Country" id="ddlCountry">
+                                    <option value="">--Select Country--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="State"></label>
+                                <select class="form-control" asp-for="State" id="ddlState">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="City"></label>
+                                <select class="form-control" asp-for="City" id="ddlCity">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label asp-for="Image"></label>
+                        <input type="file" class="form-control" id="files" asp-for="Image" onchange="DisplayImage(this);" />
+                        <img id="ImageShow" class="ml-4 mt-3" height="90" width="90" style="margin-top: 2px;" src="" />
+                    </div>
+                    <div class="form-group">
+                        <img id="Image" class="mr-3 mt-3" height="90" width="90" style="margin-top: 2px; margin-left: 24px; " src="" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm float-right btn-outline-primary mb-2" id="btnSave" onclick="UploadFile();">Save</button>
+                <button class="btn btn-sm float-right btn-outline-info mb-2" id="btnUpdate" style="display:none;" onclick="Update(); ">Update</button>
+                <button class="btn btn-sm float-right btn-outline-danger mb-2" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/ImageName.js"></script>
+}

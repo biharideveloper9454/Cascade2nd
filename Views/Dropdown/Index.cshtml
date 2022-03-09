@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+</div>
+<div class="row">
+    <div class="col-4 offset-4">
+        <div class="form-group">
+            <label>Select country</label>
+            <select class="form-control country">
+                <option>Select</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Select State</label>
+            <select class="form-control state">
+                <option>Select</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Select City</label>
+            <select class="form-control city">
+                <option>Select</option>
+            </select>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/JavaScript.js"></script>
+<script>
+    $(document).ready(function () {
+        loadCountries()
+        //GetCountry()
+
+        $(".country").change(function () {
+            var id = $(this).val();
+            $(".state").empty();
+            $(".state").append("<option>Select</option>")
+
+            $.get('@Url.Action("GetStates", "Dropdown")', { "id": id }, function (result) {
+                debugger;
+                console.log(result)
+                $.each(result, function (i, data) {
+
+                    $(".state").append("<option value=" + data.id + ">" + data.name + "</option>")
+                });
+                debugger;
+            });
+        });
+
+
+        $(".state").change(function () {
+            var id = $(this).val();
+            $(".city").empty();
+            $(".city").append("<option>Select</option>")
+            $.get('@Url.Action("GetCities", "Dropdown")', { "id": id }, function (result) {
+                console.log(result)
+                $.each(result, function (i, data) {
+
+                    $(".city").append("<option value=" + data.id + ">" + data.name + "</option>")
+                });
+            });
+        });
+    });
+    function loadCountries() {
+        $.get('@Url.Action("GetCountries","Dropdown")', function (result) {
+            $.each(result, function (i, data) {
+                $(".country").append("<option value=" + data.id + ">" + data.name + "</option>") 
+            })
+        })
+    }
+    //function GetCountry() {
+    //    debugger;
+    //    $.ajax({
+    //        url: "Dropdown/GetCountries",
+    //        type:"GET",
+    //        cache: false,
+    //        success: function (i, data) {
+    //            debugger;
+    //            $(".country").append("<option value=" + i.id + ">" + i.name + "</option>")
+    //        }
+    //    });
+    //}
+
+</script>
+

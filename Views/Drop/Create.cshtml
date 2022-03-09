@@ -1,0 +1,84 @@
+﻿@model CascadingDropdown.Models.Employee
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <h1 class="text-center text-success">@TempData["error"]</h1>
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input type="text" asp-for="Name" id="Name" class="form-control" />
+                    <span class="text-danger" id="Nameerr"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="State"></label>
+                    <select class="form-control state" id="State" asp-for="State">
+                        <option value="">--Select State--</option>
+                    </select>
+                    <span class="text-danger" id="Stateerr"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="City"></label>
+                    <select class="form-control city" id="City" asp-for="City">
+                        <option value="">--Select City--</option>
+                    </select>
+                    <span class="text-danger" id="Cityerr"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" id="Submit" class="btn btn-sm btn-info" value="Submit" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/JavaScript.js"></script>
+<script src="~/js/Custom.js"></script>
+<script>
+    $(document).ready(function () {
+        LoadState()
+        $(".state").change(function () {
+            var id = $(this).val();
+            $(".city").empty();
+            $(".city").append("");
+
+            $.get('@Url.Action("GetCity", "Drop")', { "id": id }, function (result) {
+                console.log(result)
+                $.each(result, function (i, data) {
+
+                    $(".city").append("<option value=" + data.id + ">" + data.name + "</option>")
+                });
+            });
+        });
+    });
+    function LoadState() {
+        $.get('@Url.Action("GetState","Drop")', function (result) {
+            $.each(result, function (i, data) {
+                $(".state").append("<option value=" + data.id + ">" + data.name + "</option>")
+            });
+        });
+    }
+    //function add() {
+    //    name = $("#name").val();
+    //    state = $("#state").data.name();
+    //    city = $("#city").data.name();
+    //    $.ajax({
+    //        type: "post",
+    //        url: "/drop/create/",
+    //        data: {
+    //            "name": name,
+    //            "state": state,
+    //            "city": city,
+    //        },
+    //        success: function (response) {
+    //            alert("data saved");
+    //        }
+    //    })
+    //}
+
+</script>
+
+

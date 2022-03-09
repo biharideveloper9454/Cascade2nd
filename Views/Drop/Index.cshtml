@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-4 offset-4">
+        <div class="form-group">
+            <label>Select State</label>
+            <select class="form-control state">
+                <option>Select</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Select City</label>
+            <select class="form-control city">
+                <option>Select</option>
+            </select>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/JavaScript.js"></script>
+<script>
+    $(document).ready(function () {
+        LoadState()
+        $(".state").change(function () {
+            var id = $(this).val();
+            $(".city").empty();
+            $(".city").append("<option>Select</option>")
+
+            $.get('@Url.Action("GetCity", "Drop")', { "id": id }, function (result) {
+                debugger;
+                console.log(result)
+                $.each(result, function (i, data) {
+
+                    $(".city").append("<option value=" + data.id + ">" + data.name + "</option>")
+                });
+                debugger;
+            });
+        });
+    });
+    function LoadState() {
+        $.get('@Url.Action("GetState","Drop")', function (result) {
+            $.each(result, function (i, data) {
+                $(".state").append("<option value=" + data.id + ">" + data.name + "</option>")
+            });
+        });
+    }
+</script>
+

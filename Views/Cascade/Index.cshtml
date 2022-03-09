@@ -1,0 +1,33 @@
+﻿@model CascadingDropdown.Models.Country
+@{
+    ViewData["Title"] = "Index";
+}
+
+<label asp-for="Name"></label>
+<select id="CountryId" name="CountryList" asp-for="Id" asp-items='@(new SelectList(ViewBag.countries,"Id","Name"))'>
+    <option >--Select Country--</option>
+
+</select>
+
+<select id="StateId" name="StateList" asp-for="Id" asp-items='@(new SelectList(string.Empty,"Id","Name"))'>
+    
+   
+</select>
+<button onclick="Hello()">Hello</button>
+<script>
+    $(function () {
+        $("#CountryId").change(function () {
+            var url = '@Url.Content("~/")' + "Cascade/getStateById";
+            var ddlsource = "#CountryId";
+            $.getJSON(url, { id:(ddlsource).val() }, function (data) {
+            var items = '';
+            $("#StateId").empty();
+                $.each(data, function (i, row) {
+                    items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                });
+                $(StateId).html(items);
+        });
+       
+        });
+    });
+</script>
